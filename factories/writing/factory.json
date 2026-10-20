@@ -56,7 +56,7 @@
         "../../orchestrator/comms/skills/task-comms",
         "agents/pair_writer/skills/technical-writing",
         "agents/pair_writer/skills/business-writing",
-        "../../resources/skills/conventional-commits"
+        "../../skills/conventional-commits"
       ]
     },
     {
@@ -68,13 +68,13 @@
     },
     {
       "name": "architecture_reviewer",
-      "path": "../../resources/agents/architecture_reviewer",
+      "path": "../../agents/architecture_reviewer",
       "skills": [
         "../../orchestrator/comms/skills/task-comms",
-        "../../resources/agents/architecture_reviewer/skills/architecture-challenge",
-        "../../resources/skills/conventional-commits",
-        "../../resources/skills/evidence-based-debugging",
-        "../../resources/skills/linear-context"
+        "../../agents/architecture_reviewer/skills/architecture-challenge",
+        "../../skills/conventional-commits",
+        "../../skills/evidence-based-debugging",
+        "../../skills/linear-context"
       ],
       "config": {
         "thinking": "high"

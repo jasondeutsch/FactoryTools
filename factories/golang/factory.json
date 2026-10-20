@@ -73,15 +73,15 @@
     },
     {
       "name": "architect",
-      "path": "../../resources/agents/architect",
+      "path": "../../agents/architect",
       "skills": [
         "../../orchestrator/comms/skills/task-comms",
-        "../../resources/agents/architect/skills/spec-and-plan",
-        "../../resources/agents/architect/skills/software-architecture",
-        "../../resources/agents/architect/skills/domain-modeling",
-        "../../resources/skills/conventional-commits",
-        "../../resources/skills/evidence-based-debugging",
-        "../../resources/skills/linear-context"
+        "../../agents/architect/skills/spec-and-plan",
+        "../../agents/architect/skills/software-architecture",
+        "../../agents/architect/skills/domain-modeling",
+        "../../skills/conventional-commits",
+        "../../skills/evidence-based-debugging",
+        "../../skills/linear-context"
       ],
       "config": {
         "thinking": "high"
@@ -93,13 +93,13 @@
     },
     {
       "name": "architecture_reviewer",
-      "path": "../../resources/agents/architecture_reviewer",
+      "path": "../../agents/architecture_reviewer",
       "skills": [
         "../../orchestrator/comms/skills/task-comms",
-        "../../resources/agents/architecture_reviewer/skills/architecture-challenge",
-        "../../resources/skills/conventional-commits",
-        "../../resources/skills/evidence-based-debugging",
-        "../../resources/skills/linear-context"
+        "../../agents/architecture_reviewer/skills/architecture-challenge",
+        "../../skills/conventional-commits",
+        "../../skills/evidence-based-debugging",
+        "../../skills/linear-context"
       ],
       "config": {
         "thinking": "high"
@@ -118,9 +118,9 @@
         "skills/go-code-quality",
         "skills/go-testing",
         "skills/go-concurrency",
-        "../../resources/skills/conventional-commits",
-        "../../resources/skills/evidence-based-debugging",
-        "../../resources/skills/bounded-iteration"
+        "../../skills/conventional-commits",
+        "../../skills/evidence-based-debugging",
+        "../../skills/bounded-iteration"
       ],
       "mcps": [
         "gopls",
@@ -133,6 +133,21 @@
         "require_artifacts": true,
         "require_limitations": true,
         "require_checks": true
+      },
+      "config": {
+        "loop": {
+          "prompt": "/ralph-loop --max-iterations={iterations} Follow the loaded bounded-iteration skill. Read task {task_dir}, canonical assignment, approvals, spec.html, plan.html and progress.md every iteration. Work on one ready item. Publish progress/results through comms. Stop for missing assignment, changed approval or blockers with <promise>STOP</promise>; use <promise>NEXT</promise> or <promise>COMPLETE</promise> only as defined by the skill. Do not commit without authorization.",
+          "approval_artifacts": [
+            "spec.html",
+            "plan.html"
+          ],
+          "commands": [
+            "ralph-loop",
+            "ralph-status",
+            "ralph-stop",
+            "ralph-resume"
+          ]
+        }
       }
     },
     {
@@ -145,9 +160,9 @@
         "skills/go-code-quality",
         "skills/go-testing",
         "skills/go-concurrency",
-        "../../resources/skills/conventional-commits",
-        "../../resources/skills/evidence-based-debugging",
-        "../../resources/skills/linear-context"
+        "../../skills/conventional-commits",
+        "../../skills/evidence-based-debugging",
+        "../../skills/linear-context"
       ],
       "mcps": [
         "gopls",
@@ -162,5 +177,9 @@
         "require_checks": true
       }
     }
-  ]
+  ],
+  "artifacts": {
+    "spec.html": "templates/spec.html",
+    "plan.html": "templates/plan.html"
+  }
 }

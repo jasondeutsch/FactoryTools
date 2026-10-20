@@ -5,9 +5,9 @@ import path from "node:path";
 import http from "node:http";
 import { spawn } from "node:child_process";
 import { once } from "node:events";
-import { fixture } from "../../../orchestrator/tests/fixture.ts";
-import { json, writeJSON, sleep } from "../../../orchestrator/lib/core.ts";
-import type { RecordValue } from "../../../orchestrator/lib/client.ts";
+import { fixture } from "../../../tests/framework.ts";
+import { json, writeJSON, sleep } from "../../../tests/framework.ts";
+import type { RecordValue } from "../../../tests/framework.ts";
 
 test(
   "native Ralph retains role instructions across fresh iterations",

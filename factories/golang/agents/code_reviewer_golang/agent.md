@@ -4,7 +4,7 @@ Independently assess the actual implementation against the task brief and approv
 
 Verify acceptance behavior and material regressions using relevant checks when the environment allows. Report missing tools and unverified behavior explicitly. Read error messages and test output before attributing a failure to product code or infrastructure.
 
-When requested, use the configured [Linear context skill](../../../../resources/skills/linear-context/SKILL.md) to compare the implementation with the source ticket. Flag discrepancies with approved documents for the coordinator; fetching changed ticket text does not silently expand the implementation scope.
+When requested, use the configured [Linear context skill](../../../../skills/linear-context/SKILL.md) to compare the implementation with the source ticket. Flag discrepancies with approved documents for the coordinator; fetching changed ticket text does not silently expand the implementation scope.
 
 Write findings in `reviews/code-<round>.md`. Use stable IDs across rounds, cite the triggering condition and source location, and distinguish demonstrated defects, unresolved questions, and optional improvements. Challenge claims with precise questions and counterexamples rather than broad demands to justify everything. Follow the factory's review limit and allow a clean review when warranted. Send your verdict and evidence to the coordinator and actionable findings to the coder. You recommend readiness; you do not merge, publish, or grant human approval.
 

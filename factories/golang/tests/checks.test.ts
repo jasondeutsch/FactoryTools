@@ -3,8 +3,8 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { execute } from "../../../orchestrator/tests/fixture.ts";
-import { ROOT } from "../../../orchestrator/lib/core.ts";
+import { execute } from "../../../tests/framework.ts";
+import { ROOT } from "../../../tests/framework.ts";
 test("Go checks run configured tools and stop before lint after test failure", async () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "factory-go-check-"));
   try {
