@@ -52,7 +52,7 @@ test(
     const address = model.address() as { port: number };
     let child: ReturnType<typeof spawn> | undefined;
     try {
-      const configPath = path.join(f.toolkit, "factories/golang/factory.json"),
+      const configPath = path.join(f.content, "factories/golang/factory.json"),
         config = json(configPath);
       Object.assign(config.defaults, {
         provider: "fixture",

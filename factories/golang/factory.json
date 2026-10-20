@@ -66,16 +66,16 @@
   "agents": [
     {
       "name": "coordinator",
-      "path": "../../orchestrator",
+      "path": "@factory/orchestrator",
       "skills": [
-        "../../orchestrator/comms/skills/task-comms"
+        "@factory/orchestrator/comms/skills/task-comms"
       ]
     },
     {
       "name": "architect",
       "path": "../../agents/architect",
       "skills": [
-        "../../orchestrator/comms/skills/task-comms",
+        "@factory/orchestrator/comms/skills/task-comms",
         "../../agents/architect/skills/spec-and-plan",
         "../../agents/architect/skills/software-architecture",
         "../../agents/architect/skills/domain-modeling",
@@ -95,7 +95,7 @@
       "name": "architecture_reviewer",
       "path": "../../agents/architecture_reviewer",
       "skills": [
-        "../../orchestrator/comms/skills/task-comms",
+        "@factory/orchestrator/comms/skills/task-comms",
         "../../agents/architecture_reviewer/skills/architecture-challenge",
         "../../skills/conventional-commits",
         "../../skills/evidence-based-debugging",
@@ -113,7 +113,7 @@
       "name": "coder_golang",
       "path": "agents/coder_golang",
       "skills": [
-        "../../orchestrator/comms/skills/task-comms",
+        "@factory/orchestrator/comms/skills/task-comms",
         "agents/coder_golang/skills/go-implementation",
         "skills/go-code-quality",
         "skills/go-testing",
@@ -154,7 +154,7 @@
       "name": "code_reviewer_golang",
       "path": "agents/code_reviewer_golang",
       "skills": [
-        "../../orchestrator/comms/skills/task-comms",
+        "@factory/orchestrator/comms/skills/task-comms",
         "agents/code_reviewer_golang/skills/go-review",
         "agents/code_reviewer_golang/skills/critical-code-review",
         "skills/go-code-quality",
@@ -181,5 +181,6 @@
   "artifacts": {
     "spec.html": "templates/spec.html",
     "plan.html": "templates/plan.html"
-  }
+  },
+  "recipe": "README.md"
 }

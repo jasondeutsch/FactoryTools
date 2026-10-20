@@ -1,13 +1,7 @@
-# Factory configurations
+# Factories
 
-This repository owns the [Go](golang/factory.json) and [writing](writing/factory.json) examples. Each directory contains its recipe, member configuration, optional specialist agents, skills and templates. Shared agents and skills live in the repository's root `agents/` and `skills/` directories.
+`golang` and `writing` are team configurations used by the separate Factory framework. Each directory contains `factory.json`, a Markdown recipe and its specialized resources.
 
-Install these directories alongside the separate Factory framework as described in the [tools README](../README.md). The full schema and launch behavior are documented in `.factory/docs/configuration.md` after installation.
+Run them directly from this checkout using a project `factory.json` with `extends`, or the launcher's `--factory` path. Resource paths resolve from their declaring file. Framework resources use `@factory/` references. See the [tools README](../README.md).
 
-Edit `factory.json` to configure shared execution defaults, member overrides, provider endpoints, selected MCPs/extensions and explicit skill paths. Agents do not have a competing local configuration file. All relative resource paths resolve from the factory file inside the combined `.factory/` directory.
-
-The Go example declares its spec/plan templates under `artifacts`, and the coder's Ralph launch settings under `config.loop`. The writing example declares no starter artifacts. Neither factory's name has special runtime meaning.
-
-The Go Makefile adds golangci-lint, gopls and the selected coder extension to the framework prerequisites. The writing Makefile requires only the shared prerequisites. Run these targets from an installed project, not this source repo: `make -C .factory/factories/golang install`.
-
-Framework synchronization preserves these configurations. Apply tools-repository updates deliberately so team customizations are not overwritten. Recheck startup and start fresh sessions after changing configuration.
+Dependency targets run here with `FACTORY_HOME` pointing to the framework: `make -C /path/to/tools/factories/golang install`. No files need to be copied into the application.

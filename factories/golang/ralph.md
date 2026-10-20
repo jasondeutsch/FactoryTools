@@ -42,7 +42,7 @@ The root `.ralph/` directory is runtime state and must be excluded from version 
 
 After an interruption, inspect the saved prompt, task identity, approved document hashes, progress, and partial changes. Resume only in the associated coder session/profile and only if that exact assignment remains valid. The coordinator can send `/ralph-resume` through the available native session controls. If those controls are unavailable, explain that concrete limitation. Do not resume another task's saved prompt in a new task session. `/ralph-restart` discards iteration position; it is not the default response to a failure.
 
-Starting a new loop replaces the single workspace loop record. Before switching tasks, retain any needed prior loop record with that task's evidence. Task documents, progress, and review files remain in `.factory/tasks/<task>/`; status, messages, and decisions live in comms; Pi transcripts and assembled native profiles remain in `$HOME/.factory/runtime/`.
+Starting a new loop replaces the single workspace loop record. Before switching tasks, retain any needed prior loop record with that task's evidence. Task documents, progress, and review files remain in `<runtime_dir>/tasks/<task>/`; status, messages, and decisions live in comms; Pi transcripts and assembled native profiles remain in `~/.factory/<project-name>-<path-hash>/runtime/`.
 
 The launch guard reads all comms decision pages for the task ID in the local pointer. Local event files are not an approval source. Every fresh iteration reloads the shared comms skill and the native connection; unavailable service or changed approvals require stopping for the coordinator.
 

@@ -1,5 +1,5 @@
 #!/bin/sh
-# Load this role through the shared launcher; caller arguments remain unchanged.
+# Run from the application root; FACTORY_HOME points to the framework checkout.
 set -eu
-role_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)
-exec node "$role_dir/../../../../orchestrator/session.ts" coder_golang "$@"
+: "${FACTORY_HOME:?Set FACTORY_HOME to the Factory framework checkout}"
+exec node "$FACTORY_HOME/orchestrator/session.ts" coder_golang "$@"

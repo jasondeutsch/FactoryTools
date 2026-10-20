@@ -53,7 +53,7 @@
       "name": "pair_writer",
       "path": "agents/pair_writer",
       "skills": [
-        "../../orchestrator/comms/skills/task-comms",
+        "@factory/orchestrator/comms/skills/task-comms",
         "agents/pair_writer/skills/technical-writing",
         "agents/pair_writer/skills/business-writing",
         "../../skills/conventional-commits"
@@ -61,16 +61,16 @@
     },
     {
       "name": "coordinator",
-      "path": "../../orchestrator",
+      "path": "@factory/orchestrator",
       "skills": [
-        "../../orchestrator/comms/skills/task-comms"
+        "@factory/orchestrator/comms/skills/task-comms"
       ]
     },
     {
       "name": "architecture_reviewer",
       "path": "../../agents/architecture_reviewer",
       "skills": [
-        "../../orchestrator/comms/skills/task-comms",
+        "@factory/orchestrator/comms/skills/task-comms",
         "../../agents/architecture_reviewer/skills/architecture-challenge",
         "../../skills/conventional-commits",
         "../../skills/evidence-based-debugging",
@@ -80,5 +80,6 @@
         "thinking": "high"
       }
     }
-  ]
+  ],
+  "recipe": "README.md"
 }

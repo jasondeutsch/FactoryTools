@@ -1,64 +1,54 @@
-# Agent tools and factories
+# Tools
 
-Team-owned factory configurations, agent bundles, skills and task templates. This repository supplies the working practices and tool choices used with the separate **Factory framework**. It does not contain the orchestrator, comms server or runtime launcher.
+Team-owned factories, worker agents, skills and templates for the separate Factory framework.
 
-```text
-factories/
-  golang/    # Go development recipe, member configuration, templates and specialist agents
-  writing/   # Interactive technical/business writing recipe and pair writer
-agents/
-  architect/
-  architecture_reviewer/
-skills/      # Conventional commits, debugging, Linear context and bounded iteration
-tests/      # Support for integration checks against a framework checkout
-```
+- `factories/golang/`: architecture, implementation and independent Go review.
+- `factories/writing/`: interactive technical and business writing.
+- `agents/`: shared architect and architecture reviewer bundles.
+- `skills/`: skills shared across factories.
 
-Each `factory.json` explicitly declares its members and resource selections. Nothing is enabled just because it exists in a directory. Shared defaults apply first; each member overrides only what differs. Skills are instructions, not installed tools or permissions.
+## Use from an application
 
-## Install alongside the framework
-
-First install the Factory framework into your application's `.factory/` using its README. For a new installation, copy this repository's three content directories into the same location:
+Keep this repository and the Factory framework outside the application. Install the framework's Node dependencies following its README, then set its location:
 
 ```sh
-cp -R /path/to/tools/factories /path/to/tools/agents /path/to/tools/skills /path/to/project/.factory/
+export FACTORY_HOME=/path/to/factory
 ```
 
-The result is `.factory/factories/`, `.factory/agents/`, and `.factory/skills/` alongside the framework's `.factory/orchestrator/`. Review/merge differences instead of copying over an existing team setup. Do not copy this repo's `.git`, root README, or test-support directory into the application.
+Create only `factory.json` in the application, adjusting the path to this checkout:
 
-Paths in `factory.json` are relative to that file in the **installed layout**. For example, `../../agents/architect` selects a shared agent and `../../orchestrator` selects the framework coordinator. The shared task-comms skill remains owned by the framework. Agent start scripts are intended to run from the combined installation, not from this standalone source checkout.
-
-Configure `defaults.provider`, `defaults.model`, the selected provider definition, and any member overrides. The bundled gateway/model values are examples. Keep credentials in environment variables. Define/select MCPs and extensions in the factory configuration; do not edit generated Pi profiles.
-
-## Use a factory
+```json
+{
+  "extends": "../tools/factories/golang/factory.json"
+}
+```
 
 From the application root:
 
 ```sh
-make -C .factory/factories/golang install
-.factory/orchestrator/start.sh --factory golang
+"$FACTORY_HOME/orchestrator/start.sh"
 ```
 
-The factory dependency target includes shared prerequisites, then its specific tools. Docker Compose and credentials remain separate setup. For interactive writing, use the [writing recipe](factories/writing/README.md) and its pair-writer start script.
+Or omit project configuration and pass `--factory /path/to/tools/factories/golang/factory.json`. The framework supports `--project /path/to/application` when launching from another directory.
 
-- [Go recipe](factories/golang/README.md): architecture, approval, implementation and independent review.
-- [Ralph usage](factories/golang/ralph.md): this factory's bounded iteration policy and limitations.
-- [Writing recipe](factories/writing/README.md).
-- [Configuration ownership](factories/README.md).
+Edit project `factory.json` to override inherited defaults, catalogs or members. Members merge by `name`; nested objects merge, and arrays such as skill selections replace the inherited array. All resource paths resolve from the file declaring them. `@factory/orchestrator` and `@factory/orchestrator/comms/skills/task-comms` select framework resources without copying them here.
 
-The full configuration contract lives at `.factory/docs/configuration.md` in the installed framework. The Go factory's `artifacts` map supplies `spec.html` and `plan.html`; its coder's `config.loop` supplies the Ralph prompt, approval requirements and command checks. These are choices made here, not behavior inferred by the framework from the name `golang`.
+The example defaults use OpenRouter. Export credentials in the launching shell or override provider/model settings and catalog entries for your own provider. Never put credential values in configuration. The framework creates native Pi profiles per session.
 
-## Customize and update
+Task documents and runtime files default to `~/.factory/<project-name>-<path-hash>/runtime/`; project `runtime_dir` overrides that location. The application remains the working directory for implementation.
 
-Individuals and teams can keep their own repository with the same three-directory layout. Add a factory, reference shared agents/skills, or create specialist bundles under that factory. No registry or package ecosystem is required. The framework's updater leaves these directories alone. Updating this repo does not automatically replace an application's customized copy; compare and apply changes intentionally.
-
-The supplied tools run on the host. Reviewer instructions do not impose filesystem isolation. Linear access, commits, autonomous iterations and external actions still require the applicable authorization.
-
-## Developer checks
-
-With a framework checkout and its development dependencies installed:
+## Dependencies and workers
 
 ```sh
-FACTORY_FRAMEWORK_ROOT=/path/to/factory node --testtests/*.test.ts factories/golang/tests/*.test.ts
+make -C /path/to/tools/factories/golang install
 ```
 
-Tests use a temporary combined installation, never an application checkout. The Go check-script test uses fake tools. Set `FACTORY_TEST_PI` and `FACTORY_TEST_RALPH_DIR` to enable the optional native Ralph test with a local deterministic model fixture; it makes no paid model calls. The framework's independent test suite uses synthetic configurations and does not require this repo.
+This installs framework tools and the Go factory's dependencies. `update` deliberately upgrades them. Docker with Compose is a separate prerequisite. Each agent's `start.sh` uses `FACTORY_HOME`; run it from the application root with project configuration or an explicit `--factory` path. Normally the coordinator starts workers.
+
+## Verification
+
+```sh
+FACTORY_FRAMEWORK_ROOT=/path/to/factory node --test tests/*.test.ts factories/golang/tests/*.test.ts
+```
+
+The tests load the framework's test harness. Optional live Pi/Ralph verification is described in [the Ralph reference](factories/golang/ralph.md).
