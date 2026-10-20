@@ -89,7 +89,8 @@
       "handoff": {
         "require_artifacts": true,
         "require_limitations": true
-      }
+      },
+      "entrypoint": "start.sh"
     },
     {
       "name": "architecture_reviewer",
@@ -107,7 +108,8 @@
       "handoff": {
         "require_artifacts": true,
         "require_limitations": true
-      }
+      },
+      "entrypoint": "start.sh"
     },
     {
       "name": "coder_golang",
@@ -148,7 +150,8 @@
             "ralph-resume"
           ]
         }
-      }
+      },
+      "entrypoint": "start.sh"
     },
     {
       "name": "code_reviewer_golang",
@@ -175,7 +178,8 @@
         "require_artifacts": true,
         "require_limitations": true,
         "require_checks": true
-      }
+      },
+      "entrypoint": "start.sh"
     }
   ],
   "artifacts": {

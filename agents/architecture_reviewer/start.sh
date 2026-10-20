@@ -1,5 +1,10 @@
 #!/bin/sh
-# Run from the application root; FACTORY_HOME points to the framework checkout.
+# Standalone Pi entrypoint. The caller owns the working directory and native configuration.
 set -eu
-: "${FACTORY_HOME:?Set FACTORY_HOME to the Factory framework checkout}"
-exec node "$FACTORY_HOME/orchestrator/session.ts" architecture_reviewer "$@"
+agent_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd -P)
+if [ -n "${AGENT_INSTRUCTIONS_FILE:-}" ]; then
+  # A caller supplied the complete instruction/skill selection.
+  test -f "$AGENT_INSTRUCTIONS_FILE" || { echo "Agent instructions file not found: $AGENT_INSTRUCTIONS_FILE" >&2; exit 1; }
+  exec "${AGENT_EXECUTABLE:-pi}" --append-system-prompt "$AGENT_INSTRUCTIONS_FILE" "$@"
+fi
+exec "${AGENT_EXECUTABLE:-pi}" --append-system-prompt "$agent_dir/agent.md" --no-skills --skill "$agent_dir/skills" "$@"

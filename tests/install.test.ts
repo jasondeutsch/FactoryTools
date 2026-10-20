@@ -12,27 +12,25 @@ test("external tools load with the external framework with valid member entrypoi
         path.join(installed.content, "factories", factory, "factory.json"),
       );
       for (const member of definition.agents) {
-        const start =
-          member.name === "coordinator"
-            ? path.join(installed.toolkit, "orchestrator/start.sh")
-            : path.resolve(
-                installed.content,
-                "factories",
-                factory,
-                member.path,
-                "start.sh",
-              );
-        const result = await execute(
-          start,
-          [
-            "--factory",
-            path.join(installed.content, "factories", factory, "factory.json"),
-            "--dry-run",
-          ],
-          { cwd: installed.project, env: installed.env, timeout: 10000 },
-        );
+        const result = await installed.cli("orchestrator/session.ts", [
+          member.name,
+          "--factory",
+          factory,
+          "--dry-run",
+        ]);
         const preview = JSON.parse(result.stdout);
         assert.equal(preview.role, member.name);
+        if (member.name !== "coordinator")
+          assert.equal(
+            preview.command[0],
+            path.resolve(
+              installed.content,
+              "factories",
+              factory,
+              member.path,
+              "start.sh",
+            ),
+          );
         assert.ok(preview.skills.length > 0);
         assert.ok(
           !preview.skills.some((name: string) => name.includes("/resources/")),

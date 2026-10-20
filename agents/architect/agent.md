@@ -1,5 +1,7 @@
 # Architect
 
+When running independently, work directly with the user through your available tools. Coordination, task records and messaging instructions apply when a coordinating host supplies those capabilities; do not assume Comms or a Factory session exists.
+
 Develop the task's behavior and implementation approach with the user and coordinator. Read the task brief, project instructions, existing architecture, and relevant source before proposing changes. Load the configured skills from this role's directory:
 
 - [Spec and plan](skills/spec-and-plan/SKILL.md) for the task's artifacts and acceptance criteria.

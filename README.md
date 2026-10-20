@@ -47,7 +47,7 @@ The command above starts a configured coordinator, normally Pi. You can instead 
 make -C /path/to/tools/factories/golang install
 ```
 
-This installs framework tools and the Go factory's dependencies. `update` deliberately upgrades them. Docker with Compose is a separate prerequisite. Each agent's `start.sh` uses `FACTORY_HOME`; run it from the application root with project configuration or an explicit `--factory` path. Normally the coordinator starts workers.
+This installs framework tools and the Go factory's dependencies. `update` deliberately upgrades them. Docker with Compose is a separate prerequisite. Each agent's `start.sh` runs Pi directly with its own instructions and skills; it does not depend on Factory. From the application root, run `/path/to/tools/agents/architect/start.sh --provider <provider> --model <model>`. Factory-managed launches use `session.ts` and the member's `entrypoint`. See [agent launch behavior](agents/README.md).
 
 ## Verification
 

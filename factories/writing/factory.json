@@ -57,7 +57,8 @@
         "../../agents/pair_writer/skills/technical-writing",
         "../../agents/pair_writer/skills/business-writing",
         "../../skills/conventional-commits"
-      ]
+      ],
+      "entrypoint": "start.sh"
     },
     {
       "name": "coordinator",
@@ -78,7 +79,8 @@
       ],
       "config": {
         "thinking": "high"
-      }
+      },
+      "entrypoint": "start.sh"
     }
   ],
   "recipe": "README.md"
