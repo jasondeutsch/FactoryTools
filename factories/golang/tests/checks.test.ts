@@ -24,7 +24,7 @@ test("Go checks run configured tools and stop before lint after test failure", a
     );
     const script = path.join(
         ROOT,
-        "factories/golang/agents/coder_golang/scripts/check-go.sh",
+        "agents/coder_golang/scripts/check-go.sh",
       ),
       env = {
         ...process.env,

@@ -20,7 +20,7 @@ After two review rounds with unresolved material findings, surface the disagreem
 
 First inspect the repository's own instructions, build configuration, Go version, module layout, and existing tests. Do not replace working conventions just to match this example. Record the starting state and files changed so independent review can distinguish task work from pre-existing changes. Git diffs may help when available; Git is not required.
 
-Typical tools are `gofmt`, `go test`, `go vet`, and `golangci-lint`. Prefer the project's existing Make targets and lint configuration. The Go coder's optional `/path/to/tools/factories/golang/agents/coder_golang/scripts/check-go.sh` checks formatting, runs tests, and invokes golangci-lint using the project's configuration; agree on the checks first. Never install or upgrade the Go toolchain or other dependencies without authorization.
+Typical tools are `gofmt`, `go test`, `go vet`, and `golangci-lint`. Prefer the project's existing Make targets and lint configuration. The Go coder's optional `/path/to/tools/agents/coder_golang/scripts/check-go.sh` checks formatting, runs tests, and invokes golangci-lint using the project's configuration; agree on the checks first. Never install or upgrade the Go toolchain or other dependencies without authorization.
 
 The Go coder and reviewer bundles configure gopls as a native Pi MCP server. It must already be installed with MCP support; startup checks connect without installing it. If the team intentionally runs without it, remove it from that member's `mcps` selection in `factory.json` and record the limitation. Other MCPs use the same factory configuration. Record which tools were actually available and used, not merely listed in a skill.
 

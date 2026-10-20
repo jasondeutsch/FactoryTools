@@ -4,7 +4,7 @@ Team-owned factories, worker agents, skills and templates for the separate Facto
 
 - `factories/golang/`: architecture, implementation and independent Go review.
 - `factories/writing/`: interactive technical and business writing.
-- `agents/`: shared architect and architecture reviewer bundles.
+- `agents/`: all worker bundles, including architecture, Go coding/review, and writing. Factories reference these agents by path.
 - `skills/`: skills shared across factories.
 
 ## Use from an application

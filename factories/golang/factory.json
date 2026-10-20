@@ -111,10 +111,10 @@
     },
     {
       "name": "coder_golang",
-      "path": "agents/coder_golang",
+      "path": "../../agents/coder_golang",
       "skills": [
         "@factory/orchestrator/comms/skills/task-comms",
-        "agents/coder_golang/skills/go-implementation",
+        "../../agents/coder_golang/skills/go-implementation",
         "skills/go-code-quality",
         "skills/go-testing",
         "skills/go-concurrency",
@@ -152,11 +152,11 @@
     },
     {
       "name": "code_reviewer_golang",
-      "path": "agents/code_reviewer_golang",
+      "path": "../../agents/code_reviewer_golang",
       "skills": [
         "@factory/orchestrator/comms/skills/task-comms",
-        "agents/code_reviewer_golang/skills/go-review",
-        "agents/code_reviewer_golang/skills/critical-code-review",
+        "../../agents/code_reviewer_golang/skills/go-review",
+        "../../agents/code_reviewer_golang/skills/critical-code-review",
         "skills/go-code-quality",
         "skills/go-testing",
         "skills/go-concurrency",
