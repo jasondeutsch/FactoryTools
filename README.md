@@ -37,6 +37,10 @@ The example defaults use OpenRouter. Export credentials in the launching shell o
 
 Task documents and runtime files default to `~/.factory/<project-name>-<path-hash>/runtime/`; project `runtime_dir` overrides that location. The application remains the working directory for implementation.
 
+## Coordinator choice
+
+The command above starts a configured coordinator, normally Pi. You can instead use an existing agent with the framework's coordinator and task-comms skills, a native Comms MCP connection, and host shell/terminal access. The framework's `orchestrator/README.md` documents both setup paths. The existing agent can use `session.ts coordinator --dry-run` to resolve this repository's configuration without starting another session. Loading instructions does not change that agent's model or tools; automatic inbox delivery requires a runner adapter.
+
 ## Dependencies and workers
 
 ```sh
