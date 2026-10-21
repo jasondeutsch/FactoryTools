@@ -31,7 +31,7 @@ From the application root:
 
 Or omit project configuration and pass `--factory /path/to/factory-tools/factories/golang/factory.json`. The framework supports `--project /path/to/application` when launching from another directory.
 
-Edit project `factory.json` to override membership, workflow rules, or selected model/provider. Agent instructions, skills, tools, MCPs and extension packages are owned by each bundle in `agents/`. Members merge by `name`; nested objects merge, and arrays replace. Paths resolve from the file declaring them. The framework adds its coordination skill and Comms delivery to managed sessions.
+Edit project `factory.json` to override membership, workflow rules, or selected model/provider. Worker instructions, skills, tools, MCPs and extension packages are owned by each bundle in `agents/`; the default coordinator bundle belongs to Factory. Members merge by `name`; nested objects merge, and arrays replace. Paths resolve from the file declaring them. The framework adds its coordinator and Comms skills to managed sessions.
 
 The agent profiles use OpenRouter and DeepSeek V4 Flash by default. Export `OPENROUTER_API_KEY`, edit an agent profile for another provider, or add a factory member override and its provider definition. Never put credential values in configuration. Factory prepares private Pi profiles for managed sessions.
 

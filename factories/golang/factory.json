@@ -3,11 +3,6 @@
   "owner": "coordinator",
   "agents": [
     {
-      "name": "coordinator",
-      "path": "../../agents/coordinator",
-      "entrypoint": "start.sh"
-    },
-    {
       "name": "architect",
       "path": "../../agents/architect",
       "entrypoint": "start.sh"

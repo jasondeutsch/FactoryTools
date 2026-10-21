@@ -1,15 +1,10 @@
 {
   "name": "writing",
-  "owner": "pair_writer",
+  "owner": "coordinator",
   "agents": [
     {
       "name": "pair_writer",
       "path": "../../agents/pair_writer",
-      "entrypoint": "start.sh"
-    },
-    {
-      "name": "coordinator",
-      "path": "../../agents/coordinator",
       "entrypoint": "start.sh"
     },
     {

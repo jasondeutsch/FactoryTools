@@ -37,15 +37,19 @@ test("each agent starts without Factory and passes native Pi options unchanged",
     ),
   );
   try {
-    for (const name of [
-      "coordinator",
-      "architect",
-      "architecture_reviewer",
-      "coder_golang",
-      "code_reviewer_golang",
-      "pair_writer",
+    const framework = path.resolve(
+      process.env.FACTORY_FRAMEWORK_ROOT || path.join(ROOT, "../factory"),
+    );
+    for (const directory of [
+      path.join(framework, "orchestrator/agent"),
+      ...[
+        "architect",
+        "architecture_reviewer",
+        "coder_golang",
+        "code_reviewer_golang",
+        "pair_writer",
+      ].map((name) => path.join(ROOT, "agents", name)),
     ]) {
-      const directory = path.join(ROOT, "agents", name);
       const output = JSON.parse(
         (
           await execute(

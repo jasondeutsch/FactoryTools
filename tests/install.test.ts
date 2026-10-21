@@ -56,18 +56,6 @@ test("external tools load with the external framework with valid member entrypoi
           "deepseek/deepseek-v4-flash",
         );
         assert.ok(preview.runner_configuration.enabled_mcps.includes("comms"));
-        if (member.name === "coordinator") {
-          assert.ok(
-            preview.skills.some((file: string) =>
-              file.endsWith("/orchestrator/SKILL.md"),
-            ),
-          );
-          assert.ok(
-            preview.skills.some((file: string) =>
-              file.endsWith("/skills/coordination/SKILL.md"),
-            ),
-          );
-        }
         if (member.name === "coder_golang") {
           assert.ok(
             preview.runner_configuration.enabled_mcps.includes("gopls"),
@@ -85,6 +73,30 @@ test("external tools load with the external framework with valid member entrypoi
           !preview.skills.some((name: string) => name.includes("/resources/")),
         );
       }
+      const coordinator = JSON.parse(
+        (
+          await installed.cli("orchestrator/session.ts", [
+            "coordinator",
+            "--factory",
+            factory,
+            "--dry-run",
+          ])
+        ).stdout,
+      );
+      assert.equal(
+        coordinator.command[0],
+        path.join(installed.toolkit, "orchestrator/agent/start.sh"),
+      );
+      assert.ok(
+        coordinator.skills.some((file: string) =>
+          file.endsWith("/orchestrator/SKILL.md"),
+        ),
+      );
+      assert.ok(
+        coordinator.skills.some((file: string) =>
+          file.endsWith("/orchestrator/agent/skills/coordination/SKILL.md"),
+        ),
+      );
       const directory = (
         await installed.cli("orchestrator/scripts/task.ts", [
           "new",
@@ -465,6 +477,33 @@ test("external tools load with the external framework with valid member entrypoi
     assert.ok(
       overridden.skills.some((file: string) =>
         file.endsWith("/skills/spec-and-plan/SKILL.md"),
+      ),
+    );
+    writeJSON(path.join(installed.project, "factory.json"), {
+      extends: path.join(installed.content, "factories/golang/factory.json"),
+      agents: [
+        {
+          name: "coordinator",
+          path: path.join(installed.content, "agents/architect"),
+          entrypoint: "start.sh",
+        },
+      ],
+    });
+    const customCoordinator = JSON.parse(
+      (
+        await installed.cli("orchestrator/session.ts", [
+          "coordinator",
+          "--dry-run",
+        ])
+      ).stdout,
+    );
+    assert.equal(
+      customCoordinator.command[0],
+      path.join(installed.content, "agents/architect/start.sh"),
+    );
+    assert.ok(
+      customCoordinator.skills.some((file: string) =>
+        file.endsWith("/orchestrator/SKILL.md"),
       ),
     );
     writeJSON(path.join(installed.project, "factory.json"), {
