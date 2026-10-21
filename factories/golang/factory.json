@@ -115,7 +115,7 @@
           "failed": "$blocked"
         },
         "loop": {
-          "prompt": "/ralph-loop --max-iterations={iterations} Follow the loaded bounded-iteration skill. Read task {task_dir}, canonical assignment, approvals, spec.html, plan.html and progress.md every iteration. Work on one ready item. Publish progress/results through comms. Stop for missing assignment, changed approval or blockers with <promise>STOP</promise>; use <promise>NEXT</promise> or <promise>COMPLETE</promise> only as defined by the skill. Do not commit without authorization.",
+          "prompt": "/ralph-loop --max-iterations={iterations} Follow the loaded bounded-iteration skill. Read task {task_dir}, this loop's canonical assignment, approvals, spec.html, plan.html and progress.md every iteration. Work on one ready item within that assignment. Publish progress/results through comms. After submitting this assignment's review handoff, stop this loop with <promise>COMPLETE</promise>; reviewer findings require a new coordinator assignment and loop. Stop for missing assignment, changed approval or blockers with <promise>STOP</promise>; use <promise>NEXT</promise> only while unfinished work remains in this assignment. Do not commit without authorization.",
           "approval_artifacts": [
             "spec.html",
             "plan.html"

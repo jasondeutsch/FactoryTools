@@ -191,6 +191,7 @@ test(
           )
         ).stdout,
       );
+      assert.equal(preview.manifest.assignment_guard, true);
       const session = path.dirname(checked.runtime_dir);
       child = spawn(
         process.env.FACTORY_TEST_PI!,
