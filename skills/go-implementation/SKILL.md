@@ -13,7 +13,7 @@ For services, follow existing context cancellation, timeout, resource cleanup, a
 
 Use gofmt and the project's configured linter. Test meaningful behavior, failures, and regressions appropriate to the change. Follow the existing test library; for new team tests, stretchr/testify is a reasonable convention when already agreed and available. Do not add a dependency solely to restate a trivial assertion.
 
-Prefer existing project check commands. The optional [Go check script](../../scripts/check-go.sh) checks formatting without rewriting files, runs `go test ./...`, and invokes `golangci-lint run` with any supplied lint arguments. Run it through `sh` from the application module root when those checks match the agreed plan. It uses installed tools and does not install them or supply a lint configuration.
+Prefer existing project check commands. The optional [Go check script](../../agents/coder_golang/scripts/check-go.sh) checks formatting without rewriting files, runs `go test ./...`, and invokes `golangci-lint run` with any supplied lint arguments. Run it through `sh` from the application module root when those checks match the agreed plan. It uses installed tools and does not install them or supply a lint configuration.
 
 Inspect command output. Distinguish product defects from environment or tool-version failures and report evidence before proposing a fix. Record changed files and acceptance coverage for the independent reviewer. Build, lint, and tests are tools available during coding, not reasons to expand task scope.
 

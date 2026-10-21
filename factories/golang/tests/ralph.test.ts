@@ -54,13 +54,11 @@ test(
     try {
       const configPath = path.join(f.content, "factories/golang/factory.json"),
         config = json(configPath);
-      Object.assign(config.defaults, {
-        provider: "fixture",
-        model: "fixture-model",
-        thinking: "off",
-        executable: process.env.FACTORY_TEST_PI,
-        pi: { settings: { retry: { enabled: false } } },
-      });
+      const coder = config.agents.find(
+        (m: RecordValue) => m.name === "coder_golang",
+      );
+      coder.config = { provider: "fixture", model: "fixture-model" };
+      config.defaults = { executable: process.env.FACTORY_TEST_PI };
       config.providers = {
         fixture: {
           api: "openai-completions",
@@ -69,15 +67,19 @@ test(
           models: [{ id: "fixture-model" }],
         },
       };
-      config.extensions.ralph = {
-        source: process.env.FACTORY_TEST_RALPH_DIR,
-        skills: [],
-        prompts: [],
-        themes: [],
-      };
-      config.agents.find((m: RecordValue) => m.name === "coder_golang").mcps = [
-        "comms",
-      ];
+      const settingsPath = path.join(
+        f.content,
+        "agents/coder_golang/pi/settings.json",
+      );
+      const settings = json(settingsPath);
+      settings.packages[0].source = process.env.FACTORY_TEST_RALPH_DIR;
+      settings.defaultThinkingLevel = "off";
+      settings.retry = { enabled: false };
+      writeJSON(settingsPath, settings);
+      const mcpPath = path.join(f.content, "agents/coder_golang/pi/mcp.json"),
+        mcp = json(mcpPath);
+      mcp.mcpServers.gopls.enabled = false;
+      writeJSON(mcpPath, mcp);
       writeJSON(configPath, config);
       const directory = (
         await f.cli("orchestrator/scripts/task.ts", [
@@ -90,6 +92,66 @@ test(
           "Deterministic loop test",
         ])
       ).stdout.trim();
+      const taskID = json(path.join(directory, "task.json")).comms_id;
+      const owner = await f.client.call("register_participant", {
+        task_id: taskID,
+        role: "coordinator",
+        instance_id: "fixture-owner",
+        routing_identity: "coordinator",
+        request_key: "owner",
+      });
+      for (const role of ["architect", "architecture_reviewer"]) {
+        const participant = await f.client.call("register_participant", {
+          task_id: taskID,
+          role,
+          instance_id: role,
+          routing_identity: role,
+          request_key: role,
+        });
+        const request = JSON.parse(
+          (
+            await f.cli("orchestrator/scripts/workflow.ts", [
+              "request",
+              directory,
+            ])
+          ).stdout,
+        );
+        const assignment = await f.client.call("create_assignment", {
+          task_id: taskID,
+          assigning_participant_id: owner.id,
+          assignee_id: participant.id,
+          ...Object.fromEntries(
+            Object.entries(request).filter(([key]) => key !== "role"),
+          ),
+          request_key: `assign-${role}`,
+        });
+        const accepted = await f.client.call("update_assignment", {
+          task_id: taskID,
+          assignment_id: assignment.id,
+          actor_participant_id: participant.id,
+          expected_version: assignment.version,
+          state: "accepted",
+          summary: "Working",
+          request_key: `accept-${role}`,
+        });
+        await f.client.call("submit_result", {
+          task_id: taskID,
+          assignment_id: assignment.id,
+          actor_participant_id: participant.id,
+          expected_version: accepted.version,
+          result: {
+            outcome: "completed",
+            summary: "Completed",
+            next_action: "Continue",
+            artifacts:
+              role === "architect"
+                ? ["spec.html", "plan.html"]
+                : ["reviews/architecture-01.md"],
+            limitations: [],
+          },
+          request_key: `result-${role}`,
+        });
+      }
       await f.cli("orchestrator/scripts/task.ts", [
         "decide",
         directory,

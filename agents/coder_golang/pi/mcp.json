@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "comms": {
+      "url": "http://127.0.0.1:8090/mcp",
+      "description": "Factory task coordination; enable when using Factory",
+      "exposure": "codemode",
+      "enabled": false
+    },
+    "gopls": {
+      "command": "gopls",
+      "args": [
+        "mcp"
+      ],
+      "description": "Go source navigation and diagnostics",
+      "exposure": "codemode"
+    }
+  }
+}

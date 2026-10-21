@@ -19,7 +19,7 @@ Create only `factory.json` in the application, adjusting the path to this checko
 
 ```json
 {
-  "extends": "../tools/factories/golang/factory.json"
+  "extends": "../factory-tools/factories/golang/factory.json"
 }
 ```
 
@@ -29,11 +29,11 @@ From the application root:
 "$FACTORY_HOME/orchestrator/start.sh"
 ```
 
-Or omit project configuration and pass `--factory /path/to/tools/factories/golang/factory.json`. The framework supports `--project /path/to/application` when launching from another directory.
+Or omit project configuration and pass `--factory /path/to/factory-tools/factories/golang/factory.json`. The framework supports `--project /path/to/application` when launching from another directory.
 
-Edit project `factory.json` to override inherited defaults, catalogs or members. Members merge by `name`; nested objects merge, and arrays such as skill selections replace the inherited array. All resource paths resolve from the file declaring them. `@factory/orchestrator` and `@factory/orchestrator/comms/skills/task-comms` select framework resources without copying them here.
+Edit project `factory.json` to override membership, workflow rules, or selected model/provider. Agent instructions, skills, tools, MCPs and extension packages are owned by each bundle in `agents/`. Members merge by `name`; nested objects merge, and arrays replace. Paths resolve from the file declaring them. The framework adds its coordination skill and Comms delivery to managed sessions.
 
-The example defaults use OpenRouter. Export credentials in the launching shell or override provider/model settings and catalog entries for your own provider. Never put credential values in configuration. The framework creates native Pi profiles per session.
+The agent profiles use OpenRouter and DeepSeek V4 Flash by default. Export `OPENROUTER_API_KEY`, edit an agent profile for another provider, or add a factory member override and its provider definition. Never put credential values in configuration. Factory prepares private Pi profiles for managed sessions.
 
 Task documents and runtime files default to `~/.factory/<project-name>-<path-hash>/runtime/`; project `runtime_dir` overrides that location. The application remains the working directory for implementation.
 
@@ -47,7 +47,7 @@ The command above starts a configured coordinator, normally Pi. You can instead 
 make -C /path/to/tools/factories/golang install
 ```
 
-This installs framework tools and the Go factory's dependencies. `update` deliberately upgrades them. Docker with Compose is a separate prerequisite. Each agent's `start.sh` runs Pi directly with its own instructions and skills; it does not depend on Factory. From the application root, run `/path/to/tools/agents/architect/start.sh --provider <provider> --model <model>`. Factory-managed launches use `session.ts` and the member's `entrypoint`. See [agent launch behavior](agents/README.md).
+This installs framework tools and the Go factory's dependencies. `update` deliberately upgrades them. Docker with Compose is a separate prerequisite. Each agent's `start.sh` runs Pi with its own model/provider profile and linked skills; it does not depend on Factory. From the application root, run `/path/to/factory-tools/agents/architect/start.sh`. Factory-managed launches use `session.ts` and the member's `entrypoint`. See [agent launch behavior](agents/README.md).
 
 ## Verification
 

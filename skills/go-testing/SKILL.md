@@ -14,4 +14,4 @@ Read [test design and evidence](references/test-design.md) when writing tests or
 
 Record the working directory, command, result, and relevant environment limits. Distinguish a listed command, cached result, mock expectation, and an observed execution. Missing tools or skipped integration checks must remain visible. Use expensive checks in proportion to the risk and the agreed verification plan.
 
-Resolve references against this skill's source directory. See [sources](../SOURCES.md) and the retained [MIT notice](../LICENSE).
+Resolve references against this skill's source directory. See [sources](../go-skill-sources.md) and the retained [MIT notice](../go-skill-license.md).

@@ -2,7 +2,7 @@
 
 Reviewed 2026-10-18. These shared skills are used by the Go coder and Go code reviewer; their roles determine whether guidance is applied to implementation or inspection.
 
-Selected guidance is adapted from [samber/cc-skills-golang](https://github.com/samber/cc-skills-golang), by Samuel Berthe. The upstream MIT notice is retained in [LICENSE](LICENSE). Consulted entry points and their declared metadata versions:
+Selected guidance is adapted from [samber/cc-skills-golang](https://github.com/samber/cc-skills-golang), by Samuel Berthe. The upstream MIT notice is retained in [MIT notice](go-skill-license.md). Consulted entry points and their declared metadata versions:
 
 | Source | Version | Local use |
 |---|---|---|

@@ -14,4 +14,4 @@ Propagate request context through work belonging to that request. Derived contex
 
 Read [lifecycle and cancellation](references/lifecycle.md) for concurrent or context-sensitive changes. Reviewers trace concrete interleavings and termination paths rather than flagging concurrency constructs in isolation. Use relevant race or lifecycle checks when practical without treating a passing run as a proof of correctness.
 
-Resolve references against this skill's source directory. See [sources](../SOURCES.md) and the retained [MIT notice](../LICENSE).
+Resolve references against this skill's source directory. See [sources](../go-skill-sources.md) and the retained [MIT notice](../go-skill-license.md).

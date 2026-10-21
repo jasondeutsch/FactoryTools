@@ -4,9 +4,9 @@ This is an agent implementation reference. Users ask for implementation or give 
 
 ## Assignment and launch
 
-The coder's `config.loop` owns the launch prompt, required artifact approvals, and command checks. The framework does not infer these from the role or factory name.
+The workflow's `build.loop` step policy owns the launch prompt, required artifact approvals, and command checks. The framework does not infer these from the role or factory name.
 
-The Go factory's `factory.json` defines `extensions.ralph` and selects it for the coder: [edxeth/pi-ralph-loop](https://github.com/edxeth/pi-ralph-loop), pinned to commit `108823f8d1e2089fec1f7202ca3a8905d12df574` (package version 1.3.3). Pi manages loading and installing this declared package in the private runtime profile. Git/network access is needed to obtain the plugin; application work does not require a Git repository. An already available local package can replace the source in the factory extension definition for offline use. Do not replace certificate validation to obtain it.
+The coder's `agents/coder_golang/pi/settings.json` declares: [edxeth/pi-ralph-loop](https://github.com/edxeth/pi-ralph-loop), pinned to commit `108823f8d1e2089fec1f7202ca3a8905d12df574` (package version 1.3.3). Pi manages loading and installing this declared package in the private runtime profile. Git/network access is needed to obtain the plugin; application work does not require a Git repository. An already available local package can replace `packages[0].source` in the coder profile for offline use. Do not replace certificate validation to obtain it.
 
 Before starting, the coordinator records the actual approval of current `spec.html` and `plan.html`, discovers the actual launcher-registered coder instance and creates its canonical comms assignment, and confirms no other agent owns source edits. Plan items have stable IDs and verification. Create or resume the task's `progress.md` with the assigned item IDs and any relevant prior work; do not create another spec or plan.
 
@@ -18,7 +18,7 @@ For structured assignments, start the coder's ordinary visible session, let it r
 
 Supply the actual task/assignment IDs and artifact directory as part of that session's assignment context. The orchestrator sends this through supported live session controls, not by asking the human to operate lifecycle scripts. Do not submit a slash command as an ordinary prompt when the extension is unavailable.
 
-`start.sh <task-path> --loop N` remains a fresh-session bootstrap entrypoint with a positive iteration cap; it is not resume for an already registered worker. The launcher checks current document hashes/decisions and asks Pi to load extensions and confirm the Ralph commands before dispatch. `--dry-run` creates no files but reads comms approval events; `--check` checks startup without beginning model work.
+`session.ts coder_golang <task-path> --loop N` remains a fresh-session bootstrap entrypoint with a positive iteration cap; it is not resume for an already registered worker. The launcher checks current document hashes/decisions and asks Pi to load extensions and confirm the Ralph commands before dispatch. `--dry-run` creates no files but reads comms approval events; `--check` checks startup without beginning model work.
 
 **A new launcher invocation creates a new instance ID.** Do not assign work to an earlier preflight/ordinary instance and assume a newly launched loop owns it. A fresh loop launcher registers its actual instance and waits up to `check_timeout_seconds` for the coordinator to assign it. Without an active assignment it fails before starting the model. Prefer starting the loop within the already assigned coder session. A native context reset inside that process retains `FACTORY_INSTANCE_ID`; a replacement process must use explicit participant replacement and orchestrator-directed cancellation/follow-up assignments.
 
@@ -51,10 +51,10 @@ The launch guard reads all comms decision pages for the task ID in the local poi
 - Plain-prompt completion relies on agent evidence and independent review. Ralph does not enforce our approval, progress, or verification instructions at each promise; the launch approval check is an additional entry guard, not a sandbox.
 - The native package may expose its bundled planning skill through resource discovery. Our roles use Factory's HTML documents and bounded-iteration skill; they do not invoke that planner.
 - Five iterations is a starting assignment budget, not a token, cost, request, or elapsed-time limit. Provider retries and recovery prompts can add work inside an iteration.
-- Interactive installation of a newly copied toolbox requires provider/model selection and any required MCP credentials or installed tools. A local package override must point to the real plugin checkout; it is not copied into the toolbox automatically.
+- Standalone and managed launches need the agent profile’s selected provider credentials and installed MCP tools. A local package override must point to the real plugin checkout; it is not copied into the toolbox automatically.
 - Reviewers and the pair writer do not start automatic Ralph loops. Review cycles remain explicitly assigned and bounded by the factory recipe.
 
-For an existing checkout, set `extensions.ralph.source` in `factory.json` to its absolute path. Keep the coder's `extensions` selection as `["ralph"]`. Absolute paths avoid dependence on the private runtime directory. Installing the extension globally does not make an isolated agent profile inherit it.
+For an existing plugin checkout, set `packages[0].source` in `agents/coder_golang/pi/settings.json` to its absolute path. Absolute paths avoid dependence on the private runtime directory. Installing the extension globally does not make an isolated agent profile inherit it.
 
 ## Maintainer verification
 

@@ -38,6 +38,7 @@ test("each agent starts without Factory and passes native Pi options unchanged",
   );
   try {
     for (const name of [
+      "coordinator",
       "architect",
       "architecture_reviewer",
       "coder_golang",
@@ -50,17 +51,24 @@ test("each agent starts without Factory and passes native Pi options unchanged",
           await execute(
             path.join(directory, "start.sh"),
             ["--model", "test-model", "A request with spaces"],
-            { cwd: root, env: { ...env, AGENT_EXECUTABLE: executable } },
+            { cwd: root, env: { ...env, AGENT_EXECUTABLE: executable, FACTORY_AGENT_RUNTIME_DIR: path.join(root, "profiles"), PI_CODING_AGENT_DIR: path.join(root, "unrelated-profile") } },
           )
         ).stdout,
       );
       assert.equal(output.cwd, fs.realpathSync(root));
-      assert.equal(output.profile, undefined);
+      assert.ok(output.profile.startsWith(path.join(root, "profiles")));
+      const settings = JSON.parse(fs.readFileSync(path.join(output.profile, "settings.json"), "utf8"));
+      const models = JSON.parse(fs.readFileSync(path.join(output.profile, "models.json"), "utf8"));
+      const mcps = JSON.parse(fs.readFileSync(path.join(output.profile, "mcp.json"), "utf8"));
+      assert.ok(settings.defaultProvider && settings.defaultModel);
+      assert.ok(models.providers[settings.defaultProvider]);
+      assert.ok(mcps.mcpServers.comms);
       assert.equal(
         output.instructions,
         fs.readFileSync(path.join(directory, "agent.md"), "utf8"),
       );
-      assert.ok(output.args.includes(path.join(directory, "skills")));
+      for (const skill of fs.readdirSync(path.join(directory, "skills")))
+        assert.ok(output.args.includes(fs.realpathSync(path.join(directory, "skills", skill))));
       assert.deepEqual(output.args.slice(-3), [
         "--model",
         "test-model",

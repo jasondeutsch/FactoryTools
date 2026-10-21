@@ -14,4 +14,4 @@ Inspect error paths as carefully as success paths. Preserve useful causes where 
 
 Read [clarity, errors, and data safety](references/clarity-and-errors.md) for API or stateful code. Read [security boundaries](references/security-boundaries.md) when the change handles user input, authentication, files, commands, templates, or network requests. Resolve links from this skill's source directory.
 
-Reviewers must show a concrete defect or maintenance consequence; personal preference is not a blocking finding. See [sources](../SOURCES.md) and the retained [MIT notice](../LICENSE).
+Reviewers must show a concrete defect or maintenance consequence; personal preference is not a blocking finding. See [sources](../go-skill-sources.md) and the retained [MIT notice](../go-skill-license.md).

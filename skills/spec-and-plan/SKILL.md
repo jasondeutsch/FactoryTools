@@ -5,6 +5,8 @@ description: Develop a Factory task's spec.html and plan.html from its brief and
 
 # Spec and plan
 
+The starter documents for this skill are [spec.html](templates/spec.html) and [plan.html](templates/plan.html). A factory may use these templates when creating a task or provide its own. The templates are drafts for the architect to refine, not approved deliverables.
+
 Inspect the actual repository and identify the smallest relevant set of files, interfaces, dependencies, and existing checks. Ask about missing information only when it affects scope, behavior, or a material technical choice. Do not require the human to supply a finished specification.
 
 In `spec.html`, describe the problem, intended behavior, boundaries, constraints, and observable acceptance criteria. Include representative inputs and outcomes. Distinguish established facts from assumptions. Number acceptance criteria so implementation and review can refer to them.

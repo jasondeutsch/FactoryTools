@@ -1,6 +1,6 @@
 # Factories
 
-`golang` and `writing` are team configurations used by the separate Factory framework. Each directory contains `factory.json`, a Markdown recipe and its specialized resources. Worker bundles live in the root `agents/` directory; factory configurations reference them with paths such as `../../agents/coder_golang`.
+`golang` and `writing` are team configurations used by the separate Factory framework. Each directory contains `factory.json` and a Markdown recipe; some have workflow-specific tests. The Go factory scaffolds its spec and plan from templates owned by the `spec-and-plan` skill. Every team agent bundle lives in root `agents/`, including the coordinator. Factories reference them with paths such as `../../agents/coder_golang`. Native Pi profiles and selected skill links belong to those bundles; factory files keep membership, workflow rules and optional model/provider overrides.
 
 Run them directly from this checkout using a project `factory.json` with `extends`, or the launcher's `--factory` path. Resource paths resolve from their declaring file. Framework resources use `@factory/` references. See the [tools README](../README.md).
 

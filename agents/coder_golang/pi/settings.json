@@ -1,0 +1,22 @@
+{
+  "defaultProvider": "openrouter",
+  "defaultModel": "deepseek/deepseek-v4-flash",
+  "defaultThinkingLevel": "medium",
+  "defaultTools": [
+    "read",
+    "bash",
+    "edit",
+    "write",
+    "grep",
+    "find",
+    "ls"
+  ],
+  "packages": [
+    {
+      "source": "git:github.com/edxeth/pi-ralph-loop@108823f8d1e2089fec1f7202ca3a8905d12df574",
+      "skills": [],
+      "prompts": [],
+      "themes": []
+    }
+  ]
+}
