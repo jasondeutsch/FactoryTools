@@ -11,6 +11,6 @@ Check error propagation, nil and zero-value behavior, data validation, resource 
 
 Run relevant project checks independently where practical. If the environment prevents a check, record what remains unverified. A passing binary launch is not evidence of all required behavior. A linter finding caused by an incompatible toolchain is not automatically an application defect; preserve the output and identify the mismatch.
 
-Use the configured critical-code-review skill to challenge claims, document findings, and assess readiness. Use the shared Go skills to examine language-specific risks and the credibility of verification. Recheck fixes against the original failure scenario. Do not patch source yourself, suppress checks to obtain a green result, or manufacture findings to justify the role.
+Use the configured [critical code review skill](../critical-code-review/SKILL.md) to challenge claims, document findings, and assess readiness. Use the shared skills for [Go code quality](../go-code-quality/SKILL.md), [testing](../go-testing/SKILL.md), and [concurrency and context handling](../go-concurrency/SKILL.md) when relevant. Recheck fixes against the original failure scenario. Do not patch source yourself, suppress checks to obtain a green result, or manufacture findings to justify the role.
 
 Useful references: [Go review comments](https://go.dev/wiki/CodeReviewComments) and [Go diagnostics](https://go.dev/doc/diagnostics). The project’s own standards take precedence over generic stylistic preferences.

@@ -17,4 +17,4 @@ Prefer existing project check commands. The optional [Go check script](../../age
 
 Inspect command output. Distinguish product defects from environment or tool-version failures and report evidence before proposing a fix. Record changed files and acceptance coverage for the independent reviewer. Build, lint, and tests are tools available during coding, not reasons to expand task scope.
 
-Use the configured shared Go skills for detailed code quality, testing, concurrency, and context guidance. For additional questions, consult [Go review comments](https://go.dev/wiki/CodeReviewComments) and [Effective Go](https://go.dev/doc/effective_go). This role does not install an upstream skill collection or its tools automatically.
+Use the configured shared skills for [Go code quality](../go-code-quality/SKILL.md), [testing](../go-testing/SKILL.md), and [concurrency and context handling](../go-concurrency/SKILL.md) when relevant. For additional questions, consult [Go review comments](https://go.dev/wiki/CodeReviewComments) and [Effective Go](https://go.dev/doc/effective_go). This role does not install an upstream skill collection or its tools automatically.

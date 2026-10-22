@@ -16,6 +16,6 @@ Put the behavior and quality expectations in `spec.html`; put the approach, mate
 
 Read [design decisions](references/design-decisions.md) when comparing structures, coordinating state, or planning an incremental change. Read [diagrams](references/diagrams.md) when a visual would clarify boundaries or runtime behavior. Resolve these links against this skill's source directory, not an assembled session file.
 
-Use the domain-modeling skill when the decision depends on business semantics. Avoid prescribing microservices, queues, caches, or architecture patterns without a demonstrated need.
+Use the [domain-modeling skill](../domain-modeling/SKILL.md) when the decision depends on business semantics. Avoid prescribing microservices, queues, caches, or architecture patterns without a demonstrated need.
 
 See [sources and adaptation notes](SOURCES.md); the upstream MIT notice is retained in [LICENSE](LICENSE).
